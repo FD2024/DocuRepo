@@ -14,7 +14,7 @@ echo "[doc-setup] TEMP_DIR:     $TEMP_DIR"
 echo "[doc-setup] DOWNLOAD_DIR: $DOWNLOAD_DIR"
 
 # ---- Hole alle LFS-Dateien --------------------------------------------------
-./scripts/setup_lfs.sh
+"$SCRIPT_DIR"/setup_lfs.sh
 # ---- Helper: check if downloads match requirements.txt ----------------------
 
 downloads_ok() {
