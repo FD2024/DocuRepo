@@ -1,0 +1,23 @@
+# Python venv
+venv/
+*/venv/
+
+# Toolchain build dirs
+tools/doc/linux/bin/
+tools/doc/linux/temp/
+
+# Sphinx build output
+build/
+*/build/
+
+# Doxygen output
+docs/
+*/docs/
+
+# Bytecode
+__pycache__/
+*.pyc
+
+# OS files
+.DS_Store
+Thumbs.db
