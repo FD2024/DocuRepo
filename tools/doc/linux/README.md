@@ -5,8 +5,10 @@ Dieses Verzeichnis enthält Skripte, um eine reproduzierbare Dokumentations-Umge
 ## Inhalt
 - `requirements.txt` – Versionierte Python-Abhängigkeiten.
 - `download/` – Cache für Wheels und `plantuml.jar`.
-- `fetch_artifacts.sh` – Lädt alle Artefakte ins Download-Verzeichnis (benötigt Internet).
-- `setup.sh` – Installiert Systempakete, richtet ein Virtualenv ein und nutzt nur Artefakte aus `download/`.
+- `fetch_artifacts.sh` – Lädt alle Artefakte ins Download-Verzeichnis (benötigt Internet; lädt nur Wheels für Offline-Installat
+ion).
+- `setup.sh` – Installiert Systempakete, richtet ein Virtualenv ein und nutzt nur Artefakte aus `download/` (ohne weitere Downlo
+ads oder `pip`-Upgrades).
 
 ## Vorbereitung der Downloads (online)
 ```bash

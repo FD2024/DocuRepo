@@ -11,7 +11,8 @@ Dieses Repository richtet eine reproduzierbare Dokumentations-Toolchain unter Ub
 ## Verzeichnisstruktur
 - `tools/doc/linux/requirements.txt` – Python-Abhängigkeiten (versioniert)
 - `tools/doc/linux/download/` – Cache für alle heruntergeladenen Artefakte (Wheels, `plantuml.jar`)
-- `tools/doc/linux/fetch_artifacts.sh` – Lädt alle Artefakte in den Download-Cache (benötigt Internet)
+- `tools/doc/linux/fetch_artifacts.sh` – Lädt alle Artefakte in den Download-Cache (benötigt Internet; lädt ausschließlich Whee
+ls)
 - `tools/doc/linux/setup.sh` – Installiert Systempakete und richtet die Toolchain offline aus dem Cache ein
 - `tools/doc/linux/README.md` – Detailanleitung
 

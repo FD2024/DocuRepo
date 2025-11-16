@@ -43,7 +43,10 @@ if [[ ! -f "$REQUIREMENTS_FILE" ]]; then
 fi
 
 echo "[INFO] Downloading Python wheels to $DOWNLOAD_DIR"
-python3 -m pip download --dest "$DOWNLOAD_DIR" --requirement "$REQUIREMENTS_FILE"
+python3 -m pip download \
+  --dest "$DOWNLOAD_DIR" \
+  --requirement "$REQUIREMENTS_FILE" \
+  --only-binary :all:
 
 echo "[INFO] Downloading PlantUML ${PLANTUML_VERSION}"
 curl -fL "$PLANTUML_URL" -o "$DOWNLOAD_DIR/plantuml-${PLANTUML_VERSION}.jar"

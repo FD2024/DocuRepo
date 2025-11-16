@@ -57,7 +57,6 @@ create_virtualenv() {
 install_python_packages() {
   echo "[INFO] Installing Python packages from $DOWNLOAD_DIR"
   require_file "$REQUIREMENTS_FILE" "requirements file"
-  "$VENV_DIR/bin/python" -m pip install --upgrade pip
   "$VENV_DIR/bin/python" -m pip install --no-index --find-links "$DOWNLOAD_DIR" -r "$REQUIREMENTS_FILE"
 }
 
