@@ -4,7 +4,7 @@ Dieses Repository stellt eine reproduzierbare Dokumentations-Toolchain
 für **Linux** (Ubuntu ≥ 24.3) bereit. Die Toolchain lebt unter:
 
 ```text
-tools/doc/linux/
+linux/
 ```
 
 und umfasst:
@@ -18,13 +18,13 @@ und umfasst:
 Die Installation und Konfiguration erfolgt über:
 
 ```bash
-tools/doc/linux/setup.sh
+linux/setup.sh
 ```
 
 Zusätzlich gibt es ein Info-Skript:
 
 ```bash
-tools/doc/linux/check-python-updates.sh
+linux/check-python-updates.sh
 ```
 
 das verfügbare Python-Updates anzeigt, **ohne** Pakete automatisch zu installieren.
@@ -35,22 +35,20 @@ das verfügbare Python-Updates anzeigt, **ohne** Pakete automatisch zu installie
 Im Repository (aus Sicht des Projekt-Roots) gilt:
 
 ```text
-tools/
-  doc/
-    linux/
-      setup.sh                 # Setup-Skript (Linux)
-      check-python-updates.sh  # Info-Skript für Python-Updates
-      requirements.txt         # Python-Dependencies
-      bin/                     # endgültige Installation (vom Skript verwaltet)
-      temp/                    # Probeinstallation (vom Skript verwaltet)
-      download/                # Downloads (vom Skript verwaltet)
+linux/
+  setup.sh                 # Setup-Skript (Linux)
+  check-python-updates.sh  # Info-Skript für Python-Updates
+  requirements.txt         # Python-Dependencies
+  bin/                     # endgültige Installation (vom Skript verwaltet)
+  temp/                    # Probeinstallation (vom Skript verwaltet)
+  download/                # Downloads (vom Skript verwaltet)
 ```
 
 Typischerweise werden versioniert:
 
-- `tools/doc/linux/setup.sh`
-- `tools/doc/linux/check-python-updates.sh`
-- `tools/doc/linux/requirements.txt`
+- `linux/setup.sh`
+- `linux/check-python-updates.sh`
+- `linux/requirements.txt`
 
 Die Verzeichnisse `bin`, `temp` und `download` werden vom Skript selbst erzeugt
 und sollten in der Regel **nicht** im Repository eingecheckt werden.
@@ -84,30 +82,30 @@ und sollten in der Regel **nicht** im Repository eingecheckt werden.
 Falls noch nicht geschehen:
 
 ```bash
-mkdir -p tools/doc/linux
+mkdir -p linux
 ```
 
 Die Dateien:
 
-- `tools/doc/linux/setup.sh`
-- `tools/doc/linux/check-python-updates.sh`
-- `tools/doc/linux/requirements.txt`
+- `linux/setup.sh`
+- `linux/check-python-updates.sh`
+- `linux/requirements.txt`
 
 dorthin kopieren und ausführbar machen:
 
 ```bash
-cd tools/doc/linux
+cd linux
 chmod +x setup.sh check-python-updates.sh
 cd ../../..
-git add tools/doc/linux
+git add linux
 git commit -m "Add Linux documentation toolchain setup"
 git push
 ```
 
 
-## 3. Installationslogik von `tools/doc/linux/setup.sh`
+## 3. Installationslogik von `linux/setup.sh`
 
-Das Skript arbeitet mit drei Verzeichnissen (relativ zu `tools/doc/linux`):
+Das Skript arbeitet mit drei Verzeichnissen (relativ zu `linux`):
 
 - `bin/`   → endgültige Installation der Toolchain
 - `temp/`  → Probeinstallation zum Testen
@@ -206,14 +204,14 @@ Wenn die Downloads aktuell sind und `bin/` bereits existiert, aber `temp/` nicht
 
 Das Skript:
 
-1. sucht das Virtualenv unter `tools/doc/linux/bin/venv`,
+1. sucht das Virtualenv unter `linux/bin/venv`,
 2. aktiviert es (falls vorhanden),
 3. führt `pip list --outdated` aus und zeigt alle Pakete an, für die es neuere
    Versionen auf PyPI gibt,
 4. gibt einen Hinweisblock aus, wie Python-Pakete **sicher** aktualisiert werden können:
 
    - `requirements.txt` anpassen (Versionen erhöhen),
-   - `tools/doc/linux/setup.sh` erneut ausführen, damit:
+   - `linux/setup.sh` erneut ausführen, damit:
      - neue Wheels heruntergeladen werden,
      - eine Probeinstallation erfolgt,
      - und bei Erfolg `bin/` neu aufgebaut wird.
@@ -238,7 +236,7 @@ Erstinstallation:
 
 ```bash
 # Im Repo-Root
-cd tools/doc/linux
+cd linux
 chmod +x setup.sh check-python-updates.sh   # falls noch nicht geschehen
 ./setup.sh
 ```
@@ -254,13 +252,13 @@ chmod +x setup.sh check-python-updates.sh   # falls noch nicht geschehen
 Nach erfolgreichem Setup liegt die Toolchain unter:
 
 ```text
-tools/doc/linux/bin/
+linux/bin/
 ```
 
 ### 6.1 Sphinx-Dokumentation bauen
 
 ```bash
-cd tools/doc/linux/bin
+cd linux/bin
 source venv/bin/activate
 
 cd sphinx
@@ -270,14 +268,14 @@ make html
 Die HTML-Dokumentation liegt anschließend unter:
 
 ```text
-tools/doc/linux/bin/sphinx/build/html/
+linux/bin/sphinx/build/html/
 ```
 
 
 ### 6.2 Doxygen ausführen
 
 ```bash
-cd tools/doc/linux/bin
+cd linux/bin
 doxygen Doxyfile
 ```
 

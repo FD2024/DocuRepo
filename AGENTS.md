@@ -1,9 +1,9 @@
-# Codex Cloud KI-Agent – Setup der Doku-Toolchain unter `tools/doc/linux`
+# Codex Cloud KI-Agent – Setup der Doku-Toolchain unter `linux`
 
 ## Ziel
 
 Dieses Repository soll eine reproduzierbare Dokumentations-Toolchain für **Linux** (Ubuntu ≥ 24.3)
-bereitstellen, die unter `tools/doc/linux` installiert wird.
+bereitstellen, die unter `linux` installiert wird.
 
 Die Toolchain umfasst:
 
@@ -24,28 +24,26 @@ Die Toolchain umfasst:
 Alle Pfade sind **relativ zum Repository-Root**:
 
 ```text
-tools/
-  doc/
-    linux/
-      setup.sh                 # Setup-Skript (Linux)
-      check-python-updates.sh  # Info-Skript für Python-Updates
-      requirements.txt         # Python-Dependencies
-      bin/                     # endgültige Installation (vom Skript verwaltet)
-      temp/                    # Probeinstallation (vom Skript verwaltet)
-      download/                # Downloads (vom Skript verwaltet)
+linux/
+  setup.sh                 # Setup-Skript (Linux)
+  check-python-updates.sh  # Info-Skript für Python-Updates
+  requirements.txt         # Python-Dependencies
+  bin/                     # endgültige Installation (vom Skript verwaltet)
+  temp/                    # Probeinstallation (vom Skript verwaltet)
+  download/                # Downloads (vom Skript verwaltet)
 ```
 
 Der Agent soll sicherstellen, dass diese Struktur und das Setup-Skript korrekt existieren und gepflegt werden.
 
 
-## Logik von `tools/doc/linux/setup.sh`
+## Logik von `linux/setup.sh`
 
 Das Skript richtet die Toolchain anhand folgender Zustandslogik ein:
 
-- `BIN_DIR = tools/doc/linux/bin`
-- `TEMP_DIR = tools/doc/linux/temp`
-- `DOWNLOAD_DIR = tools/doc/linux/download`
-- `REQ_FILE = tools/doc/linux/requirements.txt`
+- `BIN_DIR = linux/bin`
+- `TEMP_DIR = linux/temp`
+- `DOWNLOAD_DIR = linux/download`
+- `REQ_FILE = linux/requirements.txt`
 
 ### 1. Downloads prüfen (`downloads_ok`)
 
@@ -171,7 +169,7 @@ Dieses Skript dient **nur zur Information**, es verändert nichts.
 
 Verhalten:
 
-1. Sucht das Virtualenv unter `tools/doc/linux/bin/venv`.
+1. Sucht das Virtualenv unter `linux/bin/venv`.
 2. Wenn vorhanden:
    - aktiviert es,
    - führt `pip list --outdated` aus,
@@ -180,7 +178,7 @@ Verhalten:
 
      - dass dies nur eine Informationsausgabe ist,
      - dass Updates über Anpassungen in `requirements.txt` erfolgen sollten,
-     - dass anschließend `tools/doc/linux/setup.sh` erneut auszuführen ist.
+     - dass anschließend `linux/setup.sh` erneut auszuführen ist.
 
 3. Wenn kein Virtualenv existiert:
    - gibt eine kurze Meldung aus und beendet sich ohne Fehler.
@@ -193,9 +191,9 @@ Verhalten:
 Der Agent soll:
 
 1. **Basisstruktur sicherstellen**
-   - `tools/doc/linux/setup.sh` (ausführbar),
-   - `tools/doc/linux/check-python-updates.sh` (ausführbar),
-   - `tools/doc/linux/requirements.txt`,
+   - `linux/setup.sh` (ausführbar),
+   - `linux/check-python-updates.sh` (ausführbar),
+   - `linux/requirements.txt`,
    - Verzeichnisse `bin`, `temp`, `download` werden vom Skript verwaltet und müssen
      nicht im Repo versioniert werden.
 
@@ -213,7 +211,7 @@ Der Agent soll:
 
 4. **Fehlerfälle unterstützen**
    - Wenn eine Probeinstallation (`temp/`) scheitert und das Skript mit Fehler endet,
-     sollte der Agent die Struktur in `tools/doc/linux/temp/` analysieren, Logs lesen,
+     sollte der Agent die Struktur in `linux/temp/` analysieren, Logs lesen,
      die Ursache finden (z. B. inkompatible Versionen in `requirements.txt`) und passende
      Korrekturen vorschlagen oder direkt vornehmen.
 
@@ -226,10 +224,10 @@ Der Agent soll:
 
 Die Aufgabe des Agenten gilt als erfüllt, wenn:
 
-1. `tools/doc/linux/setup.sh` und `tools/doc/linux/check-python-updates.sh`
+1. `linux/setup.sh` und `linux/check-python-updates.sh`
    im Repository vorhanden und ausführbar sind.
-2. `tools/doc/linux/requirements.txt` die Python-Abhängigkeiten der Doku-Toolchain beschreibt.
-3. `./tools/doc/linux/setup.sh` auf einer Ubuntu-Installation (≥ 24.3) mit Internetzugang:
+2. `linux/requirements.txt` die Python-Abhängigkeiten der Doku-Toolchain beschreibt.
+3. `./linux/setup.sh` auf einer Ubuntu-Installation (≥ 24.3) mit Internetzugang:
 
    - bei veralteten Downloads `download/` neu befüllt,
    - bei fehlendem `bin/` eine Probeinstallation nach `temp/` und anschließend eine finale Installation nach `bin/` durchführt,
