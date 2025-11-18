@@ -4,6 +4,7 @@ breathe==4.36.0
 sphinx-rtd-theme==3.0.2
 sphinxcontrib-plantuml==0.31
 sphinxcontrib-mermaid==1.0.0
+myst-parser
 
 # weniger wichtig, festgeklemmte Version nur zur Vollständigkeit  
 alabaster==1.0.0
