@@ -1,11 +1,9 @@
-# Codex Cloud KI-Agent – Setup und Nutzung der Doku-Toolchain unter `linux`
+# Codex Cloud KI-Agent – Setup der Doku-Toolchain unter `linux`
 
 ## Ziel
 
-- Dieses Repository beinhaltet eine reproduzierbare Dokumentations-Toolchain für **Linux** (Ubuntu ≥ 24.3)
-- Die Dokumentations-Toolchain wird durch ausführen von `linux/setup.sh` eingerichtet, siehe Abschnitt "Logik von `linux/setup.sh`", bzw. das Skript selbst.
-- Diese Dokumentations-Toolchain soll für die Dokumentation einer anderen, unter `~/git/*` liegente git Repository genutzt werden.
-- In diesem Task ist `~/git/TimeSeries/` das Ziel Repository, für das die Dokumentation generiert werden soll.
+Dieses Repository soll eine reproduzierbare Dokumentations-Toolchain für **Linux** (Ubuntu ≥ 24.3)
+bereitstellen, die unter `linux` installiert wird.
 
 Die Toolchain umfasst:
 
@@ -16,13 +14,12 @@ Die Toolchain umfasst:
   - sphinx-rtd-theme
   - sphinxcontrib-plantuml
   - sphinxcontrib-mermaid
-  - myst_parser
 - PlantUML (`plantuml.jar` für UML-Diagramme)
 - Eine saubere Installationslogik mit:
-  - `linux/bin/`   → endgültige Installation
-  - `linux/temp/`  → Probeinstallation
-  - `linux/download/` → alle benötigten Downloads (Wheels, `plantuml.jar`)
-- Einen Python-Update-Check über `linux/check-python-updates.sh`
+  - `bin/`   → endgültige Installation
+  - `temp/`  → Probeinstallation
+  - `download/` → alle benötigten Downloads (Wheels, `plantuml.jar`)
+- Einen Python-Update-Check über `check-python-updates.sh`
 
 Alle Pfade sind **relativ zum Repository-Root**:
 
@@ -36,7 +33,8 @@ linux/
   download/                # Downloads (vom Skript verwaltet)
 ```
 
-Der Agent soll sicherstellen, dass diese Struktur und das Setup-Skript korrekt existieren und gepflegt werden. Wenn das erreicht ist, soll er es als Werkzeug zur Erstellung  der Dokumentation des Ziel Repository nutzen. 
+Der Agent soll sicherstellen, dass diese Struktur und das Setup-Skript korrekt existieren und gepflegt werden.
+
 
 ## Logik von `linux/setup.sh`
 
@@ -221,10 +219,6 @@ Der Agent soll:
    - Der Agent soll keine Git-Commits oder Pushes durchführen, sofern das nicht
      explizit über andere Prozesse (z. B. CI/CD) definiert ist.
 
-6. **Konfiguration der Toolchain im Ziel Repository 
-   - Der Agent soll das venv unter `linux/bin/venv` aktivieren.
-   - Der Agent soll die AGENTS.md im Ziel Repository inorieren
-   - Der Agent soll sich über den aktuellen Stand der Dokumentation informieren, in dem er den Inhalt des `doc/gen` Verzeichnisses im Zielrepository analysiert.
 
 ## Definition „fertig“
 
@@ -232,16 +226,13 @@ Die Aufgabe des Agenten gilt als erfüllt, wenn:
 
 1. `linux/setup.sh` und `linux/check-python-updates.sh`
    im Repository vorhanden und ausführbar sind.
-
 2. `linux/requirements.txt` die Python-Abhängigkeiten der Doku-Toolchain beschreibt.
-
 3. `./linux/setup.sh` auf einer Ubuntu-Installation (≥ 24.3) mit Internetzugang:
 
    - bei veralteten Downloads `download/` neu befüllt,
    - bei fehlendem `bin/` eine Probeinstallation nach `temp/` und anschließend eine finale Installation nach `bin/` durchführt,
    - im „grünen“ Zustand (Downloads ok, `bin` vorhanden, kein `temp`) meldet:
      „Alles ist bereits installiert. Nichts zu tun.“ und den Python-Update-Check ausführt.
-   - im Erfolgsfall (durch Aufruf von `check-python-updates.sh` am Ende von `linux/setup.sh`) eine sinnvolle Liste veralteter Python-Pakete anzeigt wird (falls vorhanden) und mit einem Hinweistext endet, ohne Pakete zu installieren.
 
-4. Im Ziel Repository, Verzeichnis `doc/gen`, bei aktiven `~/git/DocuRepo/linux/bin/venv`, müssen die Aufrufe `doxygen Doxyfile`und `sphinx-build -b html . html` ohne Fehler durchlaufen. 
-
+4. `check-python-updates.sh` im Erfolgsfall eine sinnvolle Liste veralteter Python-Pakete
+   anzeigt (falls vorhanden) und mit einem Hinweistext endet, ohne Pakete zu installieren.
